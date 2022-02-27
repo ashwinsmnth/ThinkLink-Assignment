@@ -16,7 +16,7 @@ COPY nginx.conf /etc/nginx/
 COPY uwsgi.ini /etc/uwsgi/
 COPY supervisord.conf /etc/
 
-COPY ../../Implementation/you_tube /you_tube
+COPY /you_tube /you_tube
 
 WORKDIR /you_tube
 

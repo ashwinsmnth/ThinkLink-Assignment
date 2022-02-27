@@ -4,7 +4,7 @@ RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
         libatlas-base-dev gfortran nginx supervisor
 
-RUN pip3 install uwsgi uwsgidecorators==1.1.0 db-sqlite3 google-api-python-client google-auth-oauthlib google-auth-httplib2
+RUN pip3 install uwsgi uwsgidecorators==1.1.0 db-sqlite3 CherryPy google-api-python-client google-auth-oauthlib google-auth-httplib2
 
 
 RUN useradd --no-create-home nginx

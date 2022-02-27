@@ -4,7 +4,7 @@ import os
 import googleapiclient.discovery
 import googleapiclient.errors
 
-from Video_Analytics.Implementation.you_tube.util.constants import API_KEY
+from you_tube.util.constants import API_KEY
 
 scopes = ["https://www.googleapis.com/auth/youtube.readonly"]
 

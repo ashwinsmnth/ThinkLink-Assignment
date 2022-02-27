@@ -4,7 +4,7 @@ import sys
 import sqlite3
 from sqlite3 import Error
 
-from Video_Analytics.Implementation.you_tube.db.db_tables import SQL_CREATE_VIDEO_ANALYTICS_TABLE, SQL_INDEX_CREATION, \
+from you_tube.db.db_tables import SQL_CREATE_VIDEO_ANALYTICS_TABLE, SQL_INDEX_CREATION, \
     VIDEO_ANALYTICS_DATABASE_TABLE, VIDEO_ANALYTICS_DB_COLUMNS
 
 

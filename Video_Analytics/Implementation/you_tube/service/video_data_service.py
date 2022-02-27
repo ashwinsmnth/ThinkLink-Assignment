@@ -1,5 +1,5 @@
 
-from Video_Analytics.Implementation.you_tube.service.db_connection import DBConnection
+from you_tube.service.db_connection import DBConnection
 
 
 class VideoDataService(object):

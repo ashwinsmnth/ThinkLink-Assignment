@@ -1,10 +1,10 @@
 
 from uwsgidecorators import cron, mulemsg, postfork, timer
 
-from Video_Analytics.Implementation.you_tube.api.api import VideoAnalyticsInfoApi, VideoAnalyticsSearchApi
-from Video_Analytics.Implementation.you_tube.api.cherrypy_utils import RootApi, start
-from Video_Analytics.Implementation.you_tube.service.video_data_service import VideoDataService
-from Video_Analytics.Implementation.you_tube.service.you_tube_data_retriever_service import YouTubeDataRetrieverService
+from you_tube.api.api import VideoAnalyticsInfoApi, VideoAnalyticsSearchApi
+from you_tube.api.cherrypy_utils import RootApi, start
+from you_tube.service.video_data_service import VideoDataService
+from you_tube.service.you_tube_data_retriever_service import YouTubeDataRetrieverService
 
 YT_DATA_RETRIEVER_MULE_ID = 1
 YT_DATA_RETRIEVER_MULE = "mule{}".format(YT_DATA_RETRIEVER_MULE_ID)

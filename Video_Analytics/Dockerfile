@@ -1,18 +1,11 @@
 FROM python:3.7
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends \
-        libatlas-base-dev gfortran nginx supervisor
+RUN apt-get install -y supervisor
 
 RUN pip3 install uwsgi uwsgidecorators==1.1.0 db-sqlite3 CherryPy google-api-python-client google-auth-oauthlib google-auth-httplib2
 
 
-RUN useradd --no-create-home nginx
-
-RUN rm /etc/nginx/sites-enabled/default
-RUN rm -r /root/.cache
-
-COPY nginx.conf /etc/nginx/
 COPY uwsgi.ini /etc/uwsgi/
 COPY supervisord.conf /etc/
 

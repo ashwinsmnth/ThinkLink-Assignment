@@ -3,7 +3,7 @@ services:
   app:
     build: .
     ports:
-     - "9600:80"
+     - "9600:9600"
     volumes:
      - .:/you_tube
     env_file:

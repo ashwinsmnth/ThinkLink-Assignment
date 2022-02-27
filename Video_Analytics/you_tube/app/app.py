@@ -25,7 +25,7 @@ def init():
 
     video_analytics_root_api = RootApi()
     video_analytics_root_api.info = VideoAnalyticsInfoApi(video_data_service)
-    video_analytics_root_api.info = VideoAnalyticsSearchApi(video_data_service)
+    video_analytics_root_api.search = VideoAnalyticsSearchApi(video_data_service)
 
     return start(video_analytics_root_api)
 

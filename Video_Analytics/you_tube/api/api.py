@@ -1,5 +1,7 @@
 import cherrypy
 
+from you_tube.api.cherrypy_utils import get_json_content
+
 
 class VideoAnalyticsInfoApi(object):
     exposed: bool = True
@@ -12,12 +14,13 @@ class VideoAnalyticsInfoApi(object):
 
 
 class VideoAnalyticsSearchApi(object):
+    exposed: bool = True
 
     def __init__(self, video_data_service):
         self.video_data_service = video_data_service
 
-    def POST(self, request_data):
-        # request_data = get_json_content()
+    def POST(self):
+        request_data = get_json_content()
         query_data = request_data.get("query")
 
         if request_data and "query" not in request_data:

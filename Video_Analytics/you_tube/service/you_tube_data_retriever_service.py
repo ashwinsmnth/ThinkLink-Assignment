@@ -4,7 +4,6 @@ import os
 import googleapiclient.discovery
 import googleapiclient.errors
 
-from you_tube.util.constants import API_KEY
 
 scopes = ["https://www.googleapis.com/auth/youtube.readonly"]
 
@@ -13,14 +12,15 @@ class YouTubeDataRetrieverService(object):
 
     def __init__(self, video_data_service):
         self.video_data_service = video_data_service
+        self.api_keys = YouTubeDataRetrieverService._get_api_keys()
 
     def process_latest_you_tube_videos(self):
         published_after = self.video_data_service.get_last_published_video_recorded()
-        you_tube_data = YouTubeDataRetrieverService._retrieve_you_tube_video_information(published_after)
-        self._insert_video_information_into_db(you_tube_data)
+        you_tube_data = self._retrieve_you_tube_video_information(published_after)
+        if you_tube_data:
+            self._insert_video_information_into_db(you_tube_data)
 
-    @staticmethod
-    def _retrieve_you_tube_video_information(published_after=None, max_results=50):
+    def _retrieve_you_tube_video_information(self, published_after=None, max_results=50):
         """
         Retrieves latest videos sorted in reverse chronological order of their publishing date-time from YouTube
         :return: YouTube Data
@@ -30,25 +30,30 @@ class YouTubeDataRetrieverService(object):
         api_service_name = "youtube"
         api_version = "v3"
 
-        youtube = googleapiclient.discovery.build(api_service_name, api_version, developerKey=API_KEY)
+        try:
+            youtube = googleapiclient.discovery.build(api_service_name, api_version, developerKey=self.api_keys[0])
 
-        if published_after:
-            request = youtube.search().list(
-                part="snippet",
-                maxResults=max_results,
-                type="video",
-                order="date",
-                publishedAfter=published_after
-            )
-        else:
-            request = youtube.search().list(
-                part="snippet",
-                maxResults=max_results,
-                type="video",
-                order="date"
-            )
+            if published_after:
+                request = youtube.search().list(
+                    part="snippet",
+                    maxResults=max_results,
+                    type="video",
+                    order="date",
+                    publishedAfter=published_after
+                )
+            else:
+                request = youtube.search().list(
+                    part="snippet",
+                    maxResults=max_results,
+                    type="video",
+                    order="date"
+                )
 
-        return request.execute()
+            return request.execute()
+        except Exception as e:
+            print("Error while getting data from YoutTube: {}".format(str(e)))
+            self._remove_quota_exceeded_api_key(self.api_keys[0])
+            return {}
 
     def _insert_video_information_into_db(self, you_tube_data):
         """
@@ -92,3 +97,11 @@ class YouTubeDataRetrieverService(object):
         for _, value in thumbnail_details.items():
             thumbnail_urls.append(value["url"])
         return thumbnail_urls
+
+    @staticmethod
+    def _get_api_keys():
+        keys = os.getenv("API_KEYS", "")
+        return keys.split(",")
+
+    def _remove_quota_exceeded_api_key(self, key):
+        self.api_keys.remove(key)

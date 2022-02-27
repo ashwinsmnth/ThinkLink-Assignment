@@ -1,13 +1,11 @@
-FROM python:3.5
+FROM python:3.7
 
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
         libatlas-base-dev gfortran nginx supervisor
 
-RUN pip3 install uwsgi
+RUN pip3 install uwsgi uwsgidecorators==1.1.0
 
-
-RUN pip3 install uwsgidecorators==1.1.0
 
 RUN useradd --no-create-home nginx
 
@@ -18,8 +16,8 @@ COPY nginx.conf /etc/nginx/
 COPY uwsgi.ini /etc/uwsgi/
 COPY supervisord.conf /etc/
 
-COPY /app /project
+COPY ../../Implementation/you_tube /you_tube
 
-WORKDIR /project
+WORKDIR /you_tube
 
 CMD ["/usr/bin/supervisord"]

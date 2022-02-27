@@ -5,4 +5,4 @@ services:
     ports:
      - "9600:80"
     volumes:
-     - .:/project
+     - .:/you_tube

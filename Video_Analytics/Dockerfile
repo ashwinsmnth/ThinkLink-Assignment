@@ -11,6 +11,8 @@ COPY supervisord.conf /etc/
 
 COPY /you_tube /you_tube
 
+EXPOSE 9600
+
 WORKDIR /you_tube
 
 CMD ["/usr/bin/supervisord"]

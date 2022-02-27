@@ -6,3 +6,5 @@ services:
      - "9600:80"
     volumes:
      - .:/you_tube
+    env_file:
+     - api_keys.env

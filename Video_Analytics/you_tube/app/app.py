@@ -15,7 +15,7 @@ def init():
     you_tube_data_retriever_svc = YouTubeDataRetrieverService(video_data_service)
 
     @timer(10, target=YT_DATA_RETRIEVER_MULE)
-    def run_update():
+    def run_update(num):
         """
         Cron job to retrieve latest you tube data for every 10 seconds
         """

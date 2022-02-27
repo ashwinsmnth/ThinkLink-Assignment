@@ -19,7 +19,9 @@ def init():
         """
         Cron job to retrieve latest you tube data for every 10 seconds
         """
+        print("Triggered scheduled update of recent you tube videos")
         you_tube_data_retriever_svc.process_latest_you_tube_videos()
+        print("Completed scheduled update of recent you tube videos")
 
     video_analytics_root_api = RootApi()
     video_analytics_root_api.info = VideoAnalyticsInfoApi(video_data_service)
